@@ -2,7 +2,7 @@
   <div class="fe-img">
     <img src="~assets/img/home/recommend_bg.jpg" alt="推荐图片" />
 
-    <el-date-picker
+    <!-- <el-date-picker
       value-format="yyyy-MM-dd"
       @change="selectMain"
       v-model="valueMain"
@@ -18,7 +18,7 @@
         type="date"
         placeholder="选择日期"
       ></el-date-picker>
-    </div>
+    </div>-->
   </div>
 </template>
 
@@ -27,10 +27,10 @@ export default {
   components: {},
   data: () => {
     return {
-      valueMain: "",
-      value: "",
-      list: ["input", "value", "date"],
-      check: []
+      // valueMain: "",
+      // value: "",
+      // list: ["input", "value", "date"],
+      // check: []
     };
   },
   watch: {
