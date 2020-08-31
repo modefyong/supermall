@@ -1,6 +1,6 @@
 <template>
-    <div class="container">
-        <img :src="goodsItem.show.img" :alt="goodsItem.title">
+    <div class="container" @click="getDetailInfo(goodsItem)">
+        <img :src="goodsItem.show.img" :alt="goodsItem.title" @load="imgLoad">
         <p class="img-title"> {{ goodsItem.title }} </p>
         <div class="sale-info">
             <span class="price"> {{ goodsItem.price }} </span>
@@ -25,7 +25,22 @@ export default {
         };
     },
     methods: {
-
+        imgLoad(){
+            this.$bus.$emit("imgLoad");
+        },
+        getDetailInfo(item){ // 监听单个商品的点击
+            if(item){
+                // 跳转路由传参有三种方式：1.动态路由；在路由配置路径后面添加`:参数名`,传参时 this.$router.push(路由路径，参数)。
+                // 2.query方式，传入一个对象
+                // 3.params方式，传入一个对象，区分query方式
+                this.$router.push({
+                    name: 'detail',
+                    params: {
+                        iid: item.iid
+                    }
+                });
+            }
+        }
     },
     created(){
         // console.log(this.goodsItem, "单个数据");

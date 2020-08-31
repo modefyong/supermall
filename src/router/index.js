@@ -7,6 +7,7 @@ VueRouter.prototype.push = function push(location){
 }
 
 const Home = () => import('../views/home/Home.vue')
+const Detail = () => import('../views/home/detail/Detail.vue')
 const Cart = () => import('../views/cart/Cart.vue')
 const Order = () => import('../views/order/Order.vue')
 const User = () => import('../views/user/User.vue')
@@ -36,9 +37,15 @@ const routes = [{
         path: "/user",
         name: "user",
         component: User
+    },
+    {
+        path: "/detail",
+        name: "detail",
+        component: Detail
     }
 ];
 const router =  new VueRouter({
-    routes
+    routes,
+    mode: 'history',
 }) 
 export default router

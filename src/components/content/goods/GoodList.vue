@@ -22,7 +22,7 @@ export default {
         }
     },
     methods: {
-
+        
     },
     created(){
         // console.log(this.goodsList, "商品数据");
