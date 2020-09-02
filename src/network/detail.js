@@ -20,6 +20,12 @@ const getDetailInfo = ((iid) => {
     })
 })
 
+function getRecommendsInfo() {
+    return request({
+        url: '/recommend'
+    })
+}
+
 class Goods {
     constructor(itemInfo, columns, services) {
         this.clothDesc = itemInfo.title;
@@ -28,9 +34,18 @@ class Goods {
         this.discountDesc = itemInfo.discountDesc;
         this.columns = columns;
         this.services = services;
-
-
     }
 }
 
-export { getDetailInfo, Goods }
+class Shop {
+    constructor(shopInfo) {
+        this.logo = shopInfo.shopLogo;
+        this.name = shopInfo.name;
+        this.fans = shopInfo.cFans;
+        this.sells = shopInfo.cSells;
+        this.score = shopInfo.score;
+        this.goodsCount = shopInfo.cGoods;
+    }
+}
+
+export { getDetailInfo, Goods, Shop, getRecommendsInfo }

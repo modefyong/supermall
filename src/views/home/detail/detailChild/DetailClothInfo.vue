@@ -97,6 +97,7 @@ export default {
   border-bottom: 1px solid #ccc;
 }
 .note {
+  font-size: 14px;
   padding: 20px 6px;
   border-bottom: 1px solid #ccc;
   display: flex;
