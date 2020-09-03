@@ -28,9 +28,11 @@ function getRecommendsInfo() {
 
 class Goods {
     constructor(itemInfo, columns, services) {
-        this.clothDesc = itemInfo.title;
+        this.title = itemInfo.title;
+        this.clothDesc = itemInfo.desc;
         this.price = itemInfo.price;
         this.oldPrice = itemInfo.oldPrice;
+        this.lowNowPrice = itemInfo.lowNowPrice;
         this.discountDesc = itemInfo.discountDesc;
         this.columns = columns;
         this.services = services;

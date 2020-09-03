@@ -39,6 +39,7 @@ export default {
   methods: {
     itemClickColor(index) { // 选中高亮
       this.currentIndex = index;
+      this.$emit("itemClick", index);
     },
     goBack() { // 返回上一页。两种方式
       // this.$router.back();

@@ -46,10 +46,9 @@ import TabControl from 'components/content/tab-control/TabControl';
 import GoodList from 'components/content/goods/GoodList';
 import GoodListItem from 'components/content/goods/GoodListItem';
 import Scroll from 'components/common/scroll/Scroll';
-import BackTop from 'components/content/backTop/BackTop';
 
 import { getHomeMultiData, getHomeCommodityData } from 'network/home';
-import { itemListenerMixin } from 'common/mixin.js'
+import { itemListenerMixin, backTopMixin } from 'common/mixin.js';
 export default {
   components: {
     NavBar,
@@ -60,16 +59,14 @@ export default {
     GoodList,
     GoodListItem,
     Scroll,
-    BackTop,
   },
-  mixins: [itemListenerMixin],
+  mixins: [itemListenerMixin, backTopMixin],
   data() {
     return {
       banners: [],
       recommends: [],
       type: ['pop', 'new', 'sell'],
       tIndex: 0,
-      isShowBackTop: false, // 是否显示回到顶部组件
       goods: {
         'pop': { page: 1, list: [] },
         'new': { page: 1, list: [] },
@@ -103,15 +100,14 @@ export default {
       this.getHomeCommodityData(this.type[this.tIndex]);
     },
     probePos(position) { // 监听滚动位置
-      this.isShowBackTop = (-position.y) > 1000;
+      const positionY = (-position.y);
+      this.listenBacktop(positionY); // 使用混入的回到顶部
 
       // console.log((-position.y), "滚动时的tab高度");
       // console.log(this.tabOffsetTop, "滚动时的tab高度");
-      this.isFixed = (-position.y) >= this.tabOffsetTop;
+      this.isFixed = positionY >= this.tabOffsetTop;
     },
-    backTopClick() { // 点击回到顶部
-      this.$refs.bscroll.scrollTo(0, 0, 1000);
-    },
+
     recordIndex(index) { // 记录选项卡索引
       this.tIndex = index;
 

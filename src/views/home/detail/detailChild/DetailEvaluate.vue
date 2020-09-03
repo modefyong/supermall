@@ -22,6 +22,6 @@ export default {
 <style scoped>
 .evaluate {
   font-size: 24px;
-  padding: 20px;
+  /* padding: 20px; */
 }
 </style>
