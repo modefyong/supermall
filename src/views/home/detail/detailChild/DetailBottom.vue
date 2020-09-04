@@ -28,7 +28,8 @@ export default {
 
 <style scoped>
 #bottom-tabbar {
-  position: relative;
+  width: 100%;
+  position: fixed;
 }
 #bottom-tabbar .add-cart {
   height: 49px;

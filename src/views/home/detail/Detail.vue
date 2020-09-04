@@ -92,6 +92,7 @@ export default {
       productObj.price = this.goods.lowNowPrice;
 
       console.log("购物车商品对象信息", productObj);
+      this.$store.dispatch("addCart", productObj);
 
     },
     imgLoad() {
