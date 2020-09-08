@@ -40,7 +40,7 @@ export default {
 
 <style>
 .detail-swiper {
-  height: 274px;
+  height: 340px;
   overflow: hidden;
 }
 </style>

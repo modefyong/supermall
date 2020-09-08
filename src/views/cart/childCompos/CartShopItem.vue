@@ -5,7 +5,7 @@
         type="checkbox"
         name=""
         id=""
-        :checked="isChecked"
+        :checked="shopItem.checked"
         ref="itemChecked"
         @click="itemClick"
       >
@@ -40,10 +40,6 @@ export default {
         return {}
       }
     },
-    isChecked: {
-      type: Boolean,
-      //   default: false
-    }
   },
   filters: {
     fomartSign(data, sign) {
@@ -62,6 +58,8 @@ export default {
   },
   methods: {
     itemClick() {
+      // 往对象模型中添加选中属性， 不要直接修改界面上的选中值
+      this.shopItem.checked = !this.shopItem.checked;
       this.$emit("itemClick");
     }
 

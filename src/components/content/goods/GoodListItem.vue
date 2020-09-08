@@ -4,7 +4,7 @@
     @click="getDetailInfo(goodsItem)"
   >
     <img
-      :src="showImg"
+      v-lazy="showImg"
       :alt="goodsItem.title"
       @load="imgLoad"
     >

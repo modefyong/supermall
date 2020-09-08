@@ -53,6 +53,8 @@ import { getDetailInfo, Goods, Shop, getRecommendsInfo } from 'network/detail.js
 import { itemListenerMixin, backTopMixin } from 'common/mixin.js'
 import { debounce } from 'common/utils.js'
 
+import { mapActions } from 'vuex'
+
 export default {
   name: 'Detail',
   components: {
@@ -83,6 +85,7 @@ export default {
     };
   },
   methods: {
+    ...mapActions(["addCart"]),
     addToCart() { // 加入购物车
       const productObj = {};
       productObj.iid = this.iid;
@@ -91,8 +94,14 @@ export default {
       productObj.desc = this.goods.clothDesc;
       productObj.price = this.goods.lowNowPrice;
 
-      console.log("购物车商品对象信息", productObj);
-      this.$store.dispatch("addCart", productObj);
+      // console.log("购物车商品对象信息", productObj);
+      // this.$store.dispatch("addCart", productObj).then(data => {
+      //   console.log("获得弹出信息", data);
+      // })
+      if (!productObj.iid) return
+      this.addCart(productObj).then(data => {
+        this.$toast.show(data, 1000);
+      })
 
     },
     imgLoad() {

@@ -6,7 +6,11 @@ export default {
         payload.count++;
     },
     [ADD_NEW_CART](state, payload) { // 添加新商品
+        payload.checked = true;// 往对象模型中添加选中属性
         state.cartList.push(payload);
+    },
+    changeSelectAll(state, arr) {
+        state.cartList = arr;
     }
 
 }

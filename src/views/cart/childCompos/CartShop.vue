@@ -1,12 +1,14 @@
 <template>
   <div class="cart-shop">
 
-    <scroll class="cart-scroll">
+    <scroll
+      class="cart-scroll"
+      ref="scroll"
+    >
       <cart-shop-item
         v-for="(item, index) in cartShop"
         :key="index"
         :shopItem="item"
-        :isChecked="isChecked"
         ref="item"
         @itemClick="itemClick"
       ></cart-shop-item>
@@ -64,11 +66,9 @@ export default {
 
     }
   },
-  computed: {
-  },
   data() {
     return {
-      isChecked: false, // 是否全选(关联子商品复选框)
+      // isChecked: false, // 是否全选(关联子商品复选框)
       isNowChecked: false, // 是否全选（当前页面）
       totalPrice: 0, // 选中商品总价
       totalCount: 0, // 选中商品数量
@@ -79,7 +79,13 @@ export default {
     clickSelect() { // 点击全选
       this.totalPrice = 0;
       this.totalCount = 0;
-      this.isChecked = this.$refs.allSelect.checked;
+      // this.isChecked = this.$refs.allSelect.checked;
+      let newArr = this.cartShop.map(item => {
+        item.checked = this.$refs.allSelect.checked
+        return item;
+      })
+      // 通过vuex的mutations修改state值，不能直接操作state值
+      this.$store.commit("changeSelectAll", newArr);
       this.isNowChecked = this.$refs.allSelect.checked;
       if (this.isNowChecked) {
         this.totalPrice = this.cartShop.reduce((pre, cur) => {
@@ -98,17 +104,16 @@ export default {
 
     },
     toCalc() {
-
       let submitData = {
         ids: this.idList,
         price: this.totalPrice,
         count: this.totalCount,
       }
       console.log("将数据传给后台", submitData);
-      if (submitData && submitData.ids.length !== 0) {
-        alert("提交数据！");
+      if (submitData.count > 0) {
+        this.$toast.show("提交数据！");
       } else {
-        alert("请选择商品！");
+        this.$toast.show("请选择商品！");
       }
     },
     itemClick() { // 监听子组件的复选框点击
@@ -120,7 +125,7 @@ export default {
       if (selectOnlyLen === cartShopLen) {
         this.isNowChecked = true;
         // console.log("子商品都选中时", this.isChecked); // false
-        this.isChecked = true; // 解决取消全选失效一次的bug。原因？子商品都选中时，isChecked应该为true。
+        // this.isChecked = true; // 解决取消全选失效一次的bug。原因？子商品都选中时，isChecked应该为true。
       } else {
         this.isNowChecked = false;
       }
@@ -147,6 +152,13 @@ export default {
     }
   },
   mounted() {
+  },
+  activated() {
+    // console.log("刷新");
+    this.$refs.scroll.refresh();
+    if (this.$refs.item) {
+      this.itemClick();
+    }
 
   }
 }
